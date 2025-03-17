@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { FaGithub, FaEnvelope, FaLinkedin } from "react-icons/fa";
 import dynamic from "next/dynamic";
-const Toaster = dynamic(
-  () => import("react-hot-toast").then((mod) => mod.Toaster),
-  { ssr: false }
-);
+// const Toaster = dynamic(
+//   () => import("react-hot-toast").then((mod) => mod.Toaster),
+//   { ssr: false }
+// );
 import Image from "next/image";
 import Footer from "../_components/Footer";
 
@@ -14,12 +14,12 @@ const ContactForm = () => {
   const [Email, SetEmail] = useState("");
   const [Message, SetMessage] = useState("");
   const [loading, Setloading] = useState(false);
-  const toast = dynamic(
-    () => import("react-hot-toast").then((mod) => mod.toast),
-    {
-      ssr: false,
-    }
-  );
+  // const toast = dynamic(
+  //   () => import("react-hot-toast").then((mod) => mod.toast),
+  //   {
+  //     ssr: false,
+  //   }
+  // );
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -35,15 +35,15 @@ const ContactForm = () => {
         }
       );
       if (response.status === 200) {
-        toast.success("We received your query");
+        // toast.success("We received your query");
         SetName("");
         SetEmail("");
         SetMessage("");
       } else {
-        toast.error("Please try after some time");
+        // toast.error("Please try after some time");
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      // toast.error("Something went wrong");
     } finally {
       Setloading(false);
     }
@@ -117,7 +117,7 @@ const Contact = () => {
   return (
     <>
       <div className="flex flex-col items-center w-full px-4 mt-8">
-        <Toaster />
+        {/* <Toaster /> */}
         <div className="flex flex-wrap justify-center gap-8 sm:w-3/4 p-3 bg-white shadow-lg mt-3">
           <ContactForm />
           <div className="flex flex-col p-3 rounded-lg">
