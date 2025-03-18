@@ -5,48 +5,55 @@ const ChatBot = () => {
 
   useEffect(() => {
     // Initialize the Botpress webchat toggle button
-    const script = document.createElement("script");
-    script.src = "https://cdn.botpress.cloud/webchat/v2.2/inject.js";
-    script.defer = true;
-    script.onload = () => {
-      window.botpress.init({
-        botId: process.env.NEXT_PUBLIC_BOT_ID,
-        clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-        configuration: {
-          composerPlaceholder: "Ask Skill Bot! 😎",
-          botName: "Skill Bot",
-          botAvatar:
-            "https://files.bpcontent.cloud/2025/01/19/11/20250119110053-GI67AVRT.png",
-          botDescription: "Hi, I am Skill Bot how can I help you?",
-          color: "#020202",
-          variant: "soft",
-          themeMode: "dark",
-          fontFamily: "inter",
-          radius: 1,
-        },
-      });
+    if (typeof document !== "undefined") {
+      const script = document.createElement("script");
+      script.src = "https://cdn.botpress.cloud/webchat/v2.2/inject.js";
+      script.defer = true;
+      script.onload = () => {
+        window.botpress.init({
+          botId: process.env.NEXT_PUBLIC_BOT_ID,
+          clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+          configuration: {
+            composerPlaceholder: "Ask Skill Bot! 😎",
+            botName: "Skill Bot",
+            botAvatar:
+              "https://files.bpcontent.cloud/2025/01/19/11/20250119110053-GI67AVRT.png",
+            botDescription: "Hi, I am Skill Bot how can I help you?",
+            color: "#020202",
+            variant: "soft",
+            themeMode: "dark",
+            fontFamily: "inter",
+            radius: 1,
+          },
+        });
 
-      window.botpress.on("webchat:toggle", (isOpen) => {
-        const container = document.getElementById("chatbot-container");
-        if (isOpen) {
-          container.style.display = "block";
-          setIsChatOpen(true);
-        } else {
-          container.style.display = "none";
-          setIsChatOpen(false);
-        }
-      });
-    };
-    document.body.appendChild(script);
+        window.botpress.on("webchat:toggle", (isOpen) => {
+          const container = document.getElementById("chatbot-container");
+          if (isOpen) {
+            container.style.display = "block";
+            setIsChatOpen(true);
+          } else {
+            container.style.display = "none";
+            setIsChatOpen(false);
+          }
+        });
+      };
+      document.body.appendChild(script);
+    }
 
     return () => {
-      document.body.removeChild(script);
+      if (typeof document !== "undefined") {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 
   return (
     <>
-      <div id="botpress-webchat" className="!fixed !left-[2%] !bottom-[2%]"></div>
+      <div
+        id="botpress-webchat"
+        className="!fixed !left-[2%] !bottom-[2%]"
+      ></div>
       <div
         id="chatbot-container"
         className={`webchat fixed h-[600px] w-[400px] !left-[2%] !bottom-[2%] ${

@@ -23,8 +23,7 @@ import { useParams } from "next/navigation";
 import Lottie from "react-lottie";
 import animationData from "../../_Arrays/loading.json";
 import Alert from "@mui/material/Alert";
-import Image from "next/image"
-
+import Image from "next/image";
 
 const WorkerProfileClient = ({ IntialWorkerData }) => {
   const [open, setOpen] = useState(false);
@@ -172,12 +171,14 @@ const WorkerProfileClient = ({ IntialWorkerData }) => {
                       <span
                         className="text-sm font-semibold cursor-pointer text-blue-600"
                         onClick={() => {
-                          const reviewsElement =
-                            document.getElementById("reviews");
-                          if (reviewsElement) {
-                            reviewsElement.scrollIntoView({
-                              behavior: "smooth",
-                            });
+                          if (typeof document !== "undefined") {
+                            const reviewsElement =
+                              document.getElementById("reviews");
+                            if (reviewsElement) {
+                              reviewsElement.scrollIntoView({
+                                behavior: "smooth",
+                              });
+                            }
                           }
                         }}
                       >

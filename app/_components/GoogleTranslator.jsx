@@ -17,15 +17,16 @@ const GoogleTranslator = () => {
     };
 
     // Load the Google Translate script
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src =
-      "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-    script.async = true;
-    document.body.appendChild(script);
+    if (typeof document !== "undefined") {
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src =
+        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      document.body.appendChild(script);
 
-    const customScript = document.createElement("script");
-    customScript.innerHTML = `
+      const customScript = document.createElement("script");
+      customScript.innerHTML = `
       window.addEventListener("load", function () {
         document.body.style.display = "block";
       });
@@ -36,16 +37,19 @@ const GoogleTranslator = () => {
         "wrapper_selector": ".gtranslate_wrapper"
       };
     `;
-    document.body.appendChild(customScript);
+      document.body.appendChild(customScript);
 
-    const floatScript = document.createElement("script");
-    floatScript.src = "https://cdn.gtranslate.net/widgets/latest/float.js";
-    floatScript.defer = true;
-    document.body.appendChild(floatScript);
+      const floatScript = document.createElement("script");
+      floatScript.src = "https://cdn.gtranslate.net/widgets/latest/float.js";
+      floatScript.defer = true;
+      document.body.appendChild(floatScript);
+    }
     return () => {
-      document.body.removeChild(script);
-      document.body.removeChild(customScript);
-      document.body.removeChild(floatScript);
+      if (typeof document !== "undefined") {
+        document.body.removeChild(script);
+        document.body.removeChild(customScript);
+        document.body.removeChild(floatScript);
+      }
     };
   }, []);
 
